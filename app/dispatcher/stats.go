@@ -3,23 +3,18 @@
 package dispatcher
 
 import (
-	"v2ray.com/core/common"
-	"v2ray.com/core/common/buf"
-	"v2ray.com/core/features/stats"
+	"github.com/v2fly/v2ray-core/v4/common"
+	"github.com/v2fly/v2ray-core/v4/common/buf"
+	"github.com/v2fly/v2ray-core/v4/features/stats"
 )
 
 type SizeStatWriter struct {
 	Counter stats.Counter
 	Writer  buf.Writer
-	Record  *int64
 }
 
 func (w *SizeStatWriter) WriteMultiBuffer(mb buf.MultiBuffer) error {
-	bufLen := int64(mb.Len())
-	if w.Record != nil {
-		*w.Record += bufLen
-	}
-	w.Counter.Add(bufLen)
+	w.Counter.Add(int64(mb.Len()))
 	return w.Writer.WriteMultiBuffer(mb)
 }
 
