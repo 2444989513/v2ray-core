@@ -36,6 +36,7 @@ var (
 		"trojan":      func() interface{} { return new(TrojanClientConfig) },
 		"mtproto":     func() interface{} { return new(MTProtoClientConfig) },
 		"dns":         func() interface{} { return new(DNSOutboundConfig) },
+		"loopback":    func() interface{} { return new(LoopbackConfig) },
 	}, "protocol", "settings")
 
 	ctllog = log.New(os.Stderr, "v2ctl> ", 0)
@@ -340,17 +341,18 @@ type Config struct {
 	// and should not be used.
 	OutboundDetours []OutboundDetourConfig `json:"outboundDetour"`
 
-	LogConfig       *LogConfig             `json:"log"`
-	RouterConfig    *RouterConfig          `json:"routing"`
-	DNSConfig       *DNSConfig             `json:"dns"`
-	InboundConfigs  []InboundDetourConfig  `json:"inbounds"`
-	OutboundConfigs []OutboundDetourConfig `json:"outbounds"`
-	Transport       *TransportConfig       `json:"transport"`
-	Policy          *PolicyConfig          `json:"policy"`
-	API             *APIConfig             `json:"api"`
-	Stats           *StatsConfig           `json:"stats"`
-	Reverse         *ReverseConfig         `json:"reverse"`
-	FakeDNS         *FakeDNSConfig         `json:"fakeDns"`
+	LogConfig        *LogConfig              `json:"log"`
+	RouterConfig     *RouterConfig           `json:"routing"`
+	DNSConfig        *DNSConfig              `json:"dns"`
+	InboundConfigs   []InboundDetourConfig   `json:"inbounds"`
+	OutboundConfigs  []OutboundDetourConfig  `json:"outbounds"`
+	Transport        *TransportConfig        `json:"transport"`
+	Policy           *PolicyConfig           `json:"policy"`
+	API              *APIConfig              `json:"api"`
+	Stats            *StatsConfig            `json:"stats"`
+	Reverse          *ReverseConfig          `json:"reverse"`
+	FakeDNS          *FakeDNSConfig          `json:"fakeDns"`
+	BrowserForwarder *BrowserForwarderConfig `json:"browserForwarder"`
 }
 
 func (c *Config) findInboundTag(tag string) int {
@@ -551,6 +553,14 @@ func (c *Config) Build() (*core.Config, error) {
 
 	if c.FakeDNS != nil {
 		r, err := c.FakeDNS.Build()
+		if err != nil {
+			return nil, err
+		}
+		config.App = append(config.App, serial.ToTypedMessage(r))
+	}
+
+	if c.BrowserForwarder != nil {
+		r, err := c.BrowserForwarder.Build()
 		if err != nil {
 			return nil, err
 		}

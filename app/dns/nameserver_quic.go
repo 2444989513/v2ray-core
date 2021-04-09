@@ -28,7 +28,7 @@ import (
 // by selecting the ALPN token "dq" in the crypto handshake.
 const NextProtoDQ = "doq-i00"
 
-const handshakeTimeout = time.Second * 8
+const handshakeIdleTimeout = time.Second * 8
 
 // QUICNameServer implemented DNS over QUIC
 type QUICNameServer struct {
@@ -169,7 +169,7 @@ func (s *QUICNameServer) sendQuery(ctx context.Context, domain string, clientIP 
 		go func(r *dnsRequest) {
 			// generate new context for each req, using same context
 			// may cause reqs all aborted if any one encounter an error
-			dnsCtx := context.Background()
+			dnsCtx := ctx
 
 			// reserve internal dns server requested Inbound
 			if inbound := session.InboundFromContext(ctx); inbound != nil {
@@ -367,7 +367,7 @@ func (s *QUICNameServer) getSession() (quic.Session, error) {
 func (s *QUICNameServer) openSession() (quic.Session, error) {
 	tlsConfig := tls.Config{}
 	quicConfig := &quic.Config{
-		HandshakeTimeout: handshakeTimeout,
+		HandshakeIdleTimeout: handshakeIdleTimeout,
 	}
 
 	session, err := quic.DialAddrContext(context.Background(), s.destination.NetAddr(), tlsConfig.GetTLSConfig(tls.WithNextProto("http/1.1", http2.NextProtoTLS, NextProtoDQ)), quicConfig)
