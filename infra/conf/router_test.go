@@ -3,6 +3,7 @@ package conf_test
 import (
 	"encoding/json"
 	"errors"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"testing"
@@ -27,9 +28,10 @@ func init() {
 
 	os.Setenv("v2ray.location.asset", tempPath)
 
-	if _, err := os.Stat(platform.GetAssetLocation("geoip.dat")); err != nil && errors.Is(err, os.ErrNotExist) {
-		if _, err := os.Stat(geoipPath); err != nil && errors.Is(err, os.ErrNotExist) {
-			common.Must(os.MkdirAll(tempPath, 0755))
+	common.Must(os.MkdirAll(tempPath, 0755))
+
+	if _, err := os.Stat(platform.GetAssetLocation("geoip.dat")); err != nil && errors.Is(err, fs.ErrNotExist) {
+		if _, err := os.Stat(geoipPath); err != nil && errors.Is(err, fs.ErrNotExist) {
 			geoipBytes, err := common.FetchHTTPContent(geoipURL)
 			common.Must(err)
 			common.Must(filesystem.WriteFile(geoipPath, geoipBytes))
@@ -127,6 +129,7 @@ func TestRouterConfig(t *testing.T) {
 					{
 						Tag:              "b1",
 						OutboundSelector: []string{"test"},
+						Strategy:         "random",
 					},
 				},
 				Rule: []*router.RoutingRule{
