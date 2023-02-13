@@ -28,10 +28,10 @@ require (
 	github.com/xiaokangwang/VLite v0.0.0-20220418190619-cff95160a432
 	go.starlark.net v0.0.0-20220817180228-f738f5508c12
 	go4.org/netipx v0.0.0-20220812043211-3cc044ffd68d
-	golang.org/x/crypto v0.4.0
-	golang.org/x/net v0.4.0
+	golang.org/x/crypto v0.5.0
+	golang.org/x/net v0.5.0
 	golang.org/x/sync v0.1.0
-	golang.org/x/sys v0.3.0
+	golang.org/x/sys v0.4.0
 	google.golang.org/grpc v1.51.0
 	google.golang.org/protobuf v1.28.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -58,9 +58,11 @@ require (
 	github.com/mustafaturan/monoton v1.0.0 // indirect
 	github.com/onsi/ginkgo/v2 v2.2.0 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
-	github.com/pion/dtls/v2 v2.0.0-rc.7 // indirect
+	github.com/pion/dtls/v2 v2.2.4 // indirect
 	github.com/pion/logging v0.2.2 // indirect
 	github.com/pion/sctp v1.7.6 // indirect
+	github.com/pion/transport/v2 v2.0.0 // indirect
+	github.com/pion/udp v0.1.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/quic-go/qtls-go1-18 v0.2.0 // indirect
@@ -69,8 +71,7 @@ require (
 	github.com/xtaci/smux v1.5.15 // indirect
 	golang.org/x/exp v0.0.0-20221205204356-47842c84f3db // indirect
 	golang.org/x/mod v0.6.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/text v0.6.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 )
