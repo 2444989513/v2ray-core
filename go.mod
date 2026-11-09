@@ -43,7 +43,7 @@ require (
 	github.com/vincent-petithory/dataurl v1.0.0
 	github.com/xiaokangwang/VLite v0.0.0-20231225174116-75fa4b06e9f2
 	github.com/xssnick/raptorq v1.6.0
-	github.com/xtaci/smux v1.5.57
+	github.com/xtaci/smux v2.0.1+incompatible
 	go.starlark.net v0.0.0-20261016124120-4811d7e34ea3
 	go4.org/netipx v0.0.0-20260823151212-3075585bcbeb
 	golang.org/x/crypto v0.58.0
@@ -93,6 +93,7 @@ require (
 	github.com/pion/transport/v3 v3.1.1 // indirect
 	github.com/pion/transport/v4 v4.1.0 // indirect
 	github.com/pion/turn/v5 v5.1.2 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/quic-go/qpack v0.6.0 // indirect
 	github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3 // indirect
 	github.com/rs/cors v1.11.1 // indirect
